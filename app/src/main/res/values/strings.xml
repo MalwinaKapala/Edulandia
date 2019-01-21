@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Edulandia</string>
+    <string name="head_text_view_name">UNIWERSYTET DZIECI</string>
+    <string name="menu_text_view_name">ZWIERZĘTA ŚWIATA</string>
+
 </resources>

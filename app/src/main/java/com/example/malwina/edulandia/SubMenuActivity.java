@@ -1,5 +1,6 @@
 package com.example.malwina.edulandia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,12 +20,17 @@ public class SubMenuActivity extends AppCompatActivity {
 
         subMenuTextView = findViewById(R.id.subMenuTextView);
         firstGameIconHorse = findViewById(R.id.firstGameIconHorse);
+
         firstGameIconHorse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("horse picture: ", "clicked");
 
+                Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
+                startActivity(myIntent);
+
             }
         });
     }
+
 }
