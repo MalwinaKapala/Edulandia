@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class FirstGameActivity extends AppCompatActivity {
 
@@ -43,7 +45,11 @@ public class FirstGameActivity extends AppCompatActivity {
         matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2));
 
         questionPicture = findViewById(R.id.questionPicture);
-        questionPicture.setImageResource(matches.get(0).getMatch1());
+        Random random = new Random(); //dodać ten Random jako stateczne pole
+
+        Collections.shuffle(matches, random);
+        final int currentQuestionId = random.nextInt(9);
+        questionPicture.setImageResource(matches.get(currentQuestionId).getMatch1());
         questionPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +66,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer1 image", "clicked");
+                if (0 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer1.setImageResource(matches.get(0).getMatch1());
+                } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -69,6 +79,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer2 image", "clicked");
+                if (1 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer2.setImageResource(matches.get(currentQuestionId).getMatch1());
+                } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -78,6 +92,11 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer3 image", "clicked");
+                if (2 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer3.setImageResource(matches.get(currentQuestionId).getMatch1());
+
+                } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -87,6 +106,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer4 image", "clicked");
+                if (3 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer4.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -96,6 +119,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer5 image", "clicked");
+                if (4 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer5.setImageResource(matches.get(currentQuestionId).getMatch1());
+                } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -105,6 +132,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer6 image", "clicked");
+                if (5 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer6.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -114,6 +145,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer7 image", "clicked");
+                if (6 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer7.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -123,6 +158,10 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer8 image", "clicked");
+                if (7 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer8.setImageResource(matches.get(currentQuestionId).getMatch1());
+                } else Log.d("answer", "Wrong answer");
             }
         });
 
@@ -132,8 +171,16 @@ public class FirstGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("answer9 image", "clicked");
+                if (8 == currentQuestionId) {
+                    Log.d("answer","Good answer");
+                    answer9.setImageResource(matches.get(currentQuestionId).getMatch1());
+                } else Log.d("answer", "Wrong answer");
             }
         });
+//        Collections.shuffle(matches, new Random());
+//        matches.size();
+//        System.out.println("\nShuffled List withRandom(): \n" + matches);
+
 
     }
 }
