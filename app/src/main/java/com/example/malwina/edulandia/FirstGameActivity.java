@@ -26,13 +26,14 @@ public class FirstGameActivity extends AppCompatActivity {
     private ImageView answer7;
     private ImageView answer8;
     private ImageView answer9;
-
+    private static Random random;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_game_activity);
 
+        random = new Random();
         matches = new ArrayList<>();
         matches.add(new Match(R.mipmap.cow1, R.mipmap.cow2));
         matches.add(new Match(R.mipmap.cat1, R.mipmap.cat2));
@@ -45,7 +46,6 @@ public class FirstGameActivity extends AppCompatActivity {
         matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2));
 
         questionPicture = findViewById(R.id.questionPicture);
-        Random random = new Random(); //dodać ten Random jako stateczne pole
 
         Collections.shuffle(matches, random);
         final int currentQuestionId = random.nextInt(9);
