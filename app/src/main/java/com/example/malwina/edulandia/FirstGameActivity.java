@@ -7,11 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class FirstGameActivity extends AppCompatActivity {
 
@@ -27,6 +32,7 @@ public class FirstGameActivity extends AppCompatActivity {
     private ImageView answer8;
     private ImageView answer9;
     private static Random random;
+    private int currentQuestionId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +52,16 @@ public class FirstGameActivity extends AppCompatActivity {
         matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2));
 
         questionPicture = findViewById(R.id.questionPicture);
+        final List<Integer> unAnsweredQuestions = new LinkedList<>();
+
+        for (int i = 0; i < 9; i++) {
+            unAnsweredQuestions.add(i);
+        }
 
         Collections.shuffle(matches, random);
-        final int currentQuestionId = random.nextInt(9);
+        Collections.shuffle(unAnsweredQuestions, random);
+        currentQuestionId = unAnsweredQuestions.get(0);
+
         questionPicture.setImageResource(matches.get(currentQuestionId).getMatch1());
         questionPicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,12 +78,24 @@ public class FirstGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ImageView clickedImage = (ImageView) v;
 
-                Log.d("answer3 image", "clicked");
+                Log.d("answer image", "clicked");
                 if (clickedImage.getTag().equals(matches.get(currentQuestionId).getMatch2())) {
                     Log.d("answer","Good answer");
                     clickedImage.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
 
-                } else Log.d("answer", "Wrong answer");
+                    if (unAnsweredQuestions.isEmpty()) {
+                        Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Collections.shuffle(unAnsweredQuestions, random);
+                        currentQuestionId = unAnsweredQuestions.get(0);
+                        questionPicture.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    }
+
+                } else {
+                    Log.d("answer", "Wrong answer");
+                }
             }
         };
 
@@ -78,6 +103,7 @@ public class FirstGameActivity extends AppCompatActivity {
         answer1.setImageResource(matches.get(0).getMatch2());
         answer1.setTag(matches.get(0).getMatch2());
         answer1.setOnClickListener(answersOnClick);
+
 
         answer2 = findViewById(R.id.answer2);
         answer2.setImageResource(matches.get(1).getMatch2());
