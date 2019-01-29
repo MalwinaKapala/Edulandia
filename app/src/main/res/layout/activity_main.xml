@@ -22,30 +22,33 @@
         android:text="@string/head_text_view_name"
         android:textSize="27sp"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/playButton"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp"
         />
+
     <ImageView
         android:id="@+id/playButton"
+        android:src="@mipmap/playbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/playbutton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/settingsButton"
         app:layout_constraintTop_toBottomOf="@id/headTextView"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="100dp"
         />
     <ImageView
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/settingsimage"
-        app:layout_constraintBottom_toBottomOf="@id/playButton"
         app:layout_constraintLeft_toRightOf="@+id/playButton"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/headTextView"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="50dp"
         />
 
 

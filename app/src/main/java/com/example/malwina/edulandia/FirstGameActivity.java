@@ -19,7 +19,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class FirstGameActivity extends AppCompatActivity {
-
+    private ImageView backButton;
     private List<Match> matches;
     private ImageView questionPicture;
     private ImageView answer1;
@@ -70,6 +70,17 @@ public class FirstGameActivity extends AppCompatActivity {
 
 //                Intent myIntent = new Intent(MainActivity.this, GameMenuActivity.class);
 //                startActivity(myIntent);
+            }
+        });
+
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("back button", "clicked");
+
+                Intent myIntent = new Intent (FirstGameActivity.this, SubMenuActivity.class);
+                startActivity(myIntent);
             }
         });
 

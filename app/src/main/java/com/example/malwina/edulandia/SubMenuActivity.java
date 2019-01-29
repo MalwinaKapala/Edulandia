@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class SubMenuActivity extends AppCompatActivity {
 
+    private ImageView backButton;
     private TextView subMenuTextView;
     private ImageView firstGameIconHorse;
 
@@ -29,6 +30,17 @@ public class SubMenuActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
                 startActivity(myIntent);
 
+            }
+        });
+
+        backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("back button", "clicked");
+
+                Intent myIntent = new Intent (SubMenuActivity.this, GameMenuActivity.class);
+                startActivity(myIntent);
             }
         });
     }
