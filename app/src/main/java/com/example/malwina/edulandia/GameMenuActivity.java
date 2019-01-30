@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class GameMenuActivity extends AppCompatActivity {
 
@@ -36,11 +37,16 @@ public class GameMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("back button", "clicked");
 
-                Intent myIntent = new Intent (GameMenuActivity.this, MainActivity.class);
-                startActivity(myIntent);
+                onBackPressed();
             }
         });
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "FOO", Toast.LENGTH_LONG).show();
+    }
 }
