@@ -2,6 +2,7 @@ package com.example.malwina.edulandia;
 
 import android.content.Intent;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class FirstGameActivity extends AppCompatActivity {
     private ImageView answer9;
     private static Random random;
     private int currentQuestionId;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,7 @@ public class FirstGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("back button", "clicked");
 
-                Intent myIntent = new Intent (FirstGameActivity.this, SubMenuActivity.class);
-                startActivity(myIntent);
+                onBackPressed();
             }
         });
 
@@ -158,6 +159,19 @@ public class FirstGameActivity extends AppCompatActivity {
 //        Collections.shuffle(matches, new Random());
 //        matches.size();
 //        System.out.println("\nShuffled List withRandom(): \n" + matches);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((EdulandiaApplication)getApplication()).turnDownMusic();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ((EdulandiaApplication)getApplication()).resetMusic();
 
 
     }

@@ -1,6 +1,7 @@
 package com.example.malwina.edulandia;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,7 +27,6 @@ public class SubMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("horse picture: ", "clicked");
-
                 Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
                 startActivity(myIntent);
 
@@ -39,8 +39,7 @@ public class SubMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("back button", "clicked");
 
-                Intent myIntent = new Intent (SubMenuActivity.this, GameMenuActivity.class);
-                startActivity(myIntent);
+                onBackPressed();
             }
         });
     }
