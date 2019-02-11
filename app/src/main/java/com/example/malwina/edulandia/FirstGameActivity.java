@@ -1,7 +1,5 @@
 package com.example.malwina.edulandia;
 
-import android.content.Intent;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +9,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 public class FirstGameActivity extends AppCompatActivity {
     private ImageView backButton;
@@ -34,7 +29,8 @@ public class FirstGameActivity extends AppCompatActivity {
     private ImageView answer9;
     private static Random random;
     private int currentQuestionId;
-    MediaPlayer mediaPlayer;
+    MediaPlayer soundsMediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +39,15 @@ public class FirstGameActivity extends AppCompatActivity {
 
         random = new Random();
         matches = new ArrayList<>();
-        matches.add(new Match(R.mipmap.cow1, R.mipmap.cow2));
-        matches.add(new Match(R.mipmap.cat1, R.mipmap.cat2));
-        matches.add(new Match(R.mipmap.goat1, R.mipmap.goat2));
-        matches.add(new Match(R.mipmap.dog1, R.mipmap.dog2));
-        matches.add(new Match(R.mipmap.horse1, R.mipmap.horse2));
-        matches.add(new Match(R.mipmap.sheep1, R.mipmap.sheep2));
-        matches.add(new Match(R.mipmap.pig1, R.mipmap.pig2));
-        matches.add(new Match(R.mipmap.hen1, R.mipmap.hen2));
-        matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2));
+        matches.add(new Match(R.mipmap.cow1, R.mipmap.cow2, R.raw.cowsound));
+        matches.add(new Match(R.mipmap.cat1, R.mipmap.cat2, R.raw.catsound));
+        matches.add(new Match(R.mipmap.goat1, R.mipmap.goat2, R.raw.goatsound));
+        matches.add(new Match(R.mipmap.dog1, R.mipmap.dog2, R.raw.dogsound));
+        matches.add(new Match(R.mipmap.horse1, R.mipmap.horse2, R.raw.horsesound));
+        matches.add(new Match(R.mipmap.sheep1, R.mipmap.sheep2, R.raw.sheepsound));
+        matches.add(new Match(R.mipmap.pig1, R.mipmap.pig2, R.raw.pigsound));
+        matches.add(new Match(R.mipmap.hen1, R.mipmap.hen2, R.raw.hensound));
+        matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2, R.raw.goosesound));
 
         questionPicture = findViewById(R.id.questionPicture);
         final List<Integer> unAnsweredQuestions = new LinkedList<>();
@@ -64,7 +60,7 @@ public class FirstGameActivity extends AppCompatActivity {
         Collections.shuffle(unAnsweredQuestions, random);
         currentQuestionId = unAnsweredQuestions.get(0);
 
-        questionPicture.setImageResource(matches.get(currentQuestionId).getMatch1());
+        questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
         questionPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,9 +87,19 @@ public class FirstGameActivity extends AppCompatActivity {
                 ImageView clickedImage = (ImageView) v;
 
                 Log.d("answer image", "clicked");
-                if (clickedImage.getTag().equals(matches.get(currentQuestionId).getMatch2())) {
+                if (clickedImage.getTag().equals(matches.get(currentQuestionId).getAnswerMatchImage())) {
                     Log.d("answer","Good answer");
-                    clickedImage.setImageResource(matches.get(currentQuestionId).getMatch1());
+                    soundsMediaPlayer = MediaPlayer.create(FirstGameActivity.this, matches.get(currentQuestionId).getCorrectAnswerSound());
+                    soundsMediaPlayer.start();
+                    soundsMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            Toast.makeText(FirstGameActivity.this, "Finished", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    clickedImage.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
+
                     unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
 
                     if (unAnsweredQuestions.isEmpty()) {
@@ -102,7 +108,7 @@ public class FirstGameActivity extends AppCompatActivity {
                     } else {
                         Collections.shuffle(unAnsweredQuestions, random);
                         currentQuestionId = unAnsweredQuestions.get(0);
-                        questionPicture.setImageResource(matches.get(currentQuestionId).getMatch1());
+                        questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
                     }
 
                 } else {
@@ -112,49 +118,49 @@ public class FirstGameActivity extends AppCompatActivity {
         };
 
         answer1 = findViewById(R.id.answer1);
-        answer1.setImageResource(matches.get(0).getMatch2());
-        answer1.setTag(matches.get(0).getMatch2());
+        answer1.setImageResource(matches.get(0).getAnswerMatchImage());
+        answer1.setTag(matches.get(0).getAnswerMatchImage());
         answer1.setOnClickListener(answersOnClick);
 
 
         answer2 = findViewById(R.id.answer2);
-        answer2.setImageResource(matches.get(1).getMatch2());
-        answer2.setTag(matches.get(1).getMatch2());
+        answer2.setImageResource(matches.get(1).getAnswerMatchImage());
+        answer2.setTag(matches.get(1).getAnswerMatchImage());
         answer2.setOnClickListener(answersOnClick);
 
         answer3 = findViewById(R.id.answer3);
-        answer3.setImageResource(matches.get(2).getMatch2());
-        answer3.setTag(matches.get(2).getMatch2());
+        answer3.setImageResource(matches.get(2).getAnswerMatchImage());
+        answer3.setTag(matches.get(2).getAnswerMatchImage());
         answer3.setOnClickListener(answersOnClick);
 
         answer4 = findViewById(R.id.answer4);
-        answer4.setImageResource(matches.get(3).getMatch2());
-        answer4.setTag(matches.get(3).getMatch2());
+        answer4.setImageResource(matches.get(3).getAnswerMatchImage());
+        answer4.setTag(matches.get(3).getAnswerMatchImage());
         answer4.setOnClickListener(answersOnClick);
 
         answer5 = findViewById(R.id.answer5);
-        answer5.setImageResource(matches.get(4).getMatch2());
-        answer5.setTag(matches.get(4).getMatch2());
+        answer5.setImageResource(matches.get(4).getAnswerMatchImage());
+        answer5.setTag(matches.get(4).getAnswerMatchImage());
         answer5.setOnClickListener(answersOnClick);
 
         answer6 = findViewById(R.id.answer6);
-        answer6.setImageResource(matches.get(5).getMatch2());
-        answer6.setTag(matches.get(5).getMatch2());
+        answer6.setImageResource(matches.get(5).getAnswerMatchImage());
+        answer6.setTag(matches.get(5).getAnswerMatchImage());
         answer6.setOnClickListener(answersOnClick);
 
         answer7 = findViewById(R.id.answer7);
-        answer7.setImageResource(matches.get(6).getMatch2());
-        answer7.setTag(matches.get(6).getMatch2());
+        answer7.setImageResource(matches.get(6).getAnswerMatchImage());
+        answer7.setTag(matches.get(6).getAnswerMatchImage());
         answer7.setOnClickListener(answersOnClick);
 
         answer8 = findViewById(R.id.answer8);
-        answer8.setImageResource(matches.get(7).getMatch2());
-        answer8.setTag(matches.get(7).getMatch2());
+        answer8.setImageResource(matches.get(7).getAnswerMatchImage());
+        answer8.setTag(matches.get(7).getAnswerMatchImage());
         answer8.setOnClickListener(answersOnClick);
 
         answer9 = findViewById(R.id.answer9);
-        answer9.setImageResource(matches.get(8).getMatch2());
-        answer9.setTag(matches.get(8).getMatch2());
+        answer9.setImageResource(matches.get(8).getAnswerMatchImage());
+        answer9.setTag(matches.get(8).getAnswerMatchImage());
         answer9.setOnClickListener(answersOnClick);
 //        Collections.shuffle(matches, new Random());
 //        matches.size();

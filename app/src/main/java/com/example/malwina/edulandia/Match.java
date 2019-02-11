@@ -1,20 +1,26 @@
 package com.example.malwina.edulandia;
 
 public class Match {
-    private int match1;
-    private int match2;
+    private int questionMatchImage;
+    private int answerMatchImage;
+    private int correctAnswerSound;
 
-    public Match(int match1, int match2) {
-        this.match1 = match1;
-        this.match2 = match2;
+    public Match(int questionMatchImage, int answerMatchImage, int correctAnswerSound) {
+        this.questionMatchImage = questionMatchImage;
+        this.answerMatchImage = answerMatchImage;
+        this.correctAnswerSound = correctAnswerSound;
     }
 
-    public int getMatch1() {
-        return match1;
+    public int getQuestionMatchImage() {
+        return questionMatchImage;
     }
 
-    public int getMatch2() {
-        return match2;
+    public int getAnswerMatchImage() {
+        return answerMatchImage;
+    }
+
+    public int getCorrectAnswerSound() {
+        return correctAnswerSound;
     }
 
 }

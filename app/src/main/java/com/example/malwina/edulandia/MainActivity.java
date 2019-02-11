@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView playButton;
     private ImageView settingsButton;
     Animation pulse;
-    MediaPlayer mediaPlayer;
-    ImageView firstGameIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("settings button: ", "clicked");
-
                 Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(myIntent);
             }
