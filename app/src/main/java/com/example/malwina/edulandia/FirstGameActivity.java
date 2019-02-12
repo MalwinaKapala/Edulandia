@@ -102,23 +102,10 @@ public class FirstGameActivity extends AppCompatActivity {
                     soundsMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
-                            Toast.makeText(FirstGameActivity.this, "Finished", Toast.LENGTH_LONG).show();
-                            clickedImage.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
 
-                            unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
-
-                            if (unAnsweredQuestions.isEmpty()) {
-                                Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
-
-                            } else {
-                                Collections.shuffle(unAnsweredQuestions, random);
-                                currentQuestionId = unAnsweredQuestions.get(0);
-                                questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
-                            }   questionPicture.setVisibility(View.VISIBLE);
+                            nextQuestion(clickedImage, unAnsweredQuestions);
                         }
-
                     }
-
                     );
 
 
@@ -177,6 +164,22 @@ public class FirstGameActivity extends AppCompatActivity {
 //        Collections.shuffle(matches, new Random());
 //        matches.size();
 //        System.out.println("\nShuffled List withRandom(): \n" + matches);
+    }
+
+    private void nextQuestion(ImageView clickedImage, List<Integer>unAnsweredQuestions) {
+        Toast.makeText(FirstGameActivity.this, "Finished", Toast.LENGTH_LONG).show();
+        clickedImage.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
+
+        unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
+
+        if (unAnsweredQuestions.isEmpty()) {
+            Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
+
+        } else {
+            Collections.shuffle(unAnsweredQuestions, random);
+            currentQuestionId = unAnsweredQuestions.get(0);
+            questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
+        }   questionPicture.setVisibility(View.VISIBLE);
     }
 
     @Override
