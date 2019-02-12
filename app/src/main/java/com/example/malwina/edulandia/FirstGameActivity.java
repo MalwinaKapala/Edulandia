@@ -81,35 +81,47 @@ public class FirstGameActivity extends AppCompatActivity {
             }
         });
 
-        View.OnClickListener answersOnClick = new View.OnClickListener() {
+
+
+        final View.OnClickListener answersOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView clickedImage = (ImageView) v;
+                if (soundsMediaPlayer != null && soundsMediaPlayer.isPlaying()) {
+                    return;
+                }
+
+                final ImageView clickedImage = (ImageView) v;
 
                 Log.d("answer image", "clicked");
                 if (clickedImage.getTag().equals(matches.get(currentQuestionId).getAnswerMatchImage())) {
                     Log.d("answer","Good answer");
                     soundsMediaPlayer = MediaPlayer.create(FirstGameActivity.this, matches.get(currentQuestionId).getCorrectAnswerSound());
                     soundsMediaPlayer.start();
+                    questionPicture.setVisibility(View.INVISIBLE);
+
                     soundsMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
                             Toast.makeText(FirstGameActivity.this, "Finished", Toast.LENGTH_LONG).show();
+                            clickedImage.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
+
+                            unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
+
+                            if (unAnsweredQuestions.isEmpty()) {
+                                Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
+
+                            } else {
+                                Collections.shuffle(unAnsweredQuestions, random);
+                                currentQuestionId = unAnsweredQuestions.get(0);
+                                questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
+                            }   questionPicture.setVisibility(View.VISIBLE);
                         }
-                    });
 
-                    clickedImage.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
-
-                    unAnsweredQuestions.removeAll(Collections.singletonList(currentQuestionId));
-
-                    if (unAnsweredQuestions.isEmpty()) {
-                        Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
-
-                    } else {
-                        Collections.shuffle(unAnsweredQuestions, random);
-                        currentQuestionId = unAnsweredQuestions.get(0);
-                        questionPicture.setImageResource(matches.get(currentQuestionId).getQuestionMatchImage());
                     }
+
+                    );
+
+
 
                 } else {
                     Log.d("answer", "Wrong answer");
