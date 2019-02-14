@@ -39,14 +39,14 @@ public class FirstGameActivity extends AppCompatActivity {
 
         random = new Random();
         matches = new ArrayList<>();
-        matches.add(new Match(R.mipmap.cow1, R.mipmap.cow2, R.raw.cowsound));
-        matches.add(new Match(R.mipmap.cat1, R.mipmap.cat2, R.raw.catsound));
-        matches.add(new Match(R.mipmap.goat1, R.mipmap.goat2, R.raw.goatsound));
-        matches.add(new Match(R.mipmap.dog1, R.mipmap.dog2, R.raw.dogsound));
-        matches.add(new Match(R.mipmap.horse1, R.mipmap.horse2, R.raw.horsesound));
-        matches.add(new Match(R.mipmap.sheep1, R.mipmap.sheep2, R.raw.sheepsound));
-        matches.add(new Match(R.mipmap.pig1, R.mipmap.pig2, R.raw.pigsound));
-        matches.add(new Match(R.mipmap.hen1, R.mipmap.hen2, R.raw.hensound));
+        matches.add(new Match(R.mipmap.cow1, R.mipmap.cow2, R.raw.trimmedcowsound));
+        matches.add(new Match(R.mipmap.cat1, R.mipmap.cat2, R.raw.trimmedcatsound));
+        matches.add(new Match(R.mipmap.goat1, R.mipmap.goat2, R.raw.trimmedgoatsound));
+        matches.add(new Match(R.mipmap.dog1, R.mipmap.dog2, R.raw.trimmeddogsound));
+        matches.add(new Match(R.mipmap.horse1, R.mipmap.horse2, R.raw.trimmedhorsesound));
+        matches.add(new Match(R.mipmap.sheep1, R.mipmap.sheep2, R.raw.trimmedsheepsound));
+        matches.add(new Match(R.mipmap.pig1, R.mipmap.pig2, R.raw.trimmedpigsound));
+        matches.add(new Match(R.mipmap.hen1, R.mipmap.hen2, R.raw.trimmedhensound));
         matches.add(new Match(R.mipmap.goose1, R.mipmap.goose2, R.raw.goosesound));
 
         questionPicture = findViewById(R.id.questionPicture);
@@ -95,18 +95,20 @@ public class FirstGameActivity extends AppCompatActivity {
                 Log.d("answer image", "clicked");
                 if (clickedImage.getTag().equals(matches.get(currentQuestionId).getAnswerMatchImage())) {
                     Log.d("answer","Good answer");
-                    soundsMediaPlayer = MediaPlayer.create(FirstGameActivity.this, matches.get(currentQuestionId).getCorrectAnswerSound());
-                    soundsMediaPlayer.start();
                     questionPicture.setVisibility(View.INVISIBLE);
 
-                    soundsMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-
-                            nextQuestion(clickedImage, unAnsweredQuestions);
-                        }
+                    if (((EdulandiaApplication)getApplication()).isSoundOn()) {
+                        soundsMediaPlayer = MediaPlayer.create(FirstGameActivity.this, matches.get(currentQuestionId).getCorrectAnswerSound());
+                        soundsMediaPlayer.start();
+                        soundsMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                nextQuestion(clickedImage, unAnsweredQuestions);
+                            }
+                        });
+                    } else {
+                        nextQuestion(clickedImage, unAnsweredQuestions);
                     }
-                    );
 
 
 

@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("is on create shows", "Yes");
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
