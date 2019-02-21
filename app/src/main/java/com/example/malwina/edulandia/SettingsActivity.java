@@ -1,14 +1,10 @@
 package com.example.malwina.edulandia;
 
-import android.app.Application;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -16,6 +12,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ImageView settingsMusicIcon;
     private ImageView settingsSoundsIcon;
     private ImageView backButton;
+    private boolean soundsOn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +46,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("settings sounds icon", "clicked");
+
+                if (((EdulandiaApplication)getApplication()).isSoundOn()) {
+                    ((EdulandiaApplication)getApplication()).setSoundOff();
+                } else {
+                    ((EdulandiaApplication)getApplication()).setSoundOn();
+                }
             }
         });
     }

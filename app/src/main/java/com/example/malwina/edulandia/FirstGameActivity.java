@@ -1,5 +1,6 @@
 package com.example.malwina.edulandia;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -118,6 +119,8 @@ public class FirstGameActivity extends AppCompatActivity {
             }
         };
 
+
+
         answer1 = findViewById(R.id.answer1);
         answer1.setImageResource(matches.get(0).getAnswerMatchImage());
         answer1.setTag(matches.get(0).getAnswerMatchImage());
@@ -176,6 +179,12 @@ public class FirstGameActivity extends AppCompatActivity {
 
         if (unAnsweredQuestions.isEmpty()) {
             Toast.makeText(FirstGameActivity.this, "Wygrałeś", Toast.LENGTH_LONG).show();
+
+            ((EdulandiaApplication)getApplication()).pauseMusic();
+
+
+            Intent myIntent = new Intent(FirstGameActivity.this, BalloonActivity.class);
+            startActivity(myIntent);
 
         } else {
             Collections.shuffle(unAnsweredQuestions, random);

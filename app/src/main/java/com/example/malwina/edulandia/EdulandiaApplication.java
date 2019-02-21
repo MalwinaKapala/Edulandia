@@ -9,6 +9,7 @@ public class EdulandiaApplication extends Application {
     public MediaPlayer musicMediaPlayer;
     private ImageView backButton;
     boolean soundOn = true;
+    public MediaPlayer balloonMediaPlayer;
 
 
     @Override
@@ -68,4 +69,21 @@ public class EdulandiaApplication extends Application {
         soundOn = true;
         Toast.makeText(EdulandiaApplication.this, "ON", Toast.LENGTH_SHORT).show();
     }
+
+    public void startBalloonMusic() {
+        balloonMediaPlayer.start();
+    }
+
+    public void pauseBalloonMusic() {
+        balloonMediaPlayer.pause();
+    }
+
+    public void toggleBalloonMusic() {
+        if (balloonMediaPlayer.isPlaying()) {
+            pauseBalloonMusic();
+        } else {
+            startBalloonMusic();
+        }
+    }
+
 }

@@ -3,5 +3,6 @@
     <string name="head_text_view_name">DOMOWE PRZEDSZKOLE</string>
     <string name="menu_text_view_name">ZWIERZĘTA ŚWIATA</string>
     <string name="settings_music_icon_off">OFF</string>
+    <string name="balloon_text">BRAWO!</string>
 
 </resources>

@@ -14,6 +14,7 @@ public class SubMenuActivity extends AppCompatActivity {
     private ImageView backButton;
     private TextView subMenuTextView;
     private ImageView firstGameIconHorse;
+    private ImageView secondGameWaspNest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,6 @@ public class SubMenuActivity extends AppCompatActivity {
                 Log.d("horse picture: ", "clicked");
                 Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
                 startActivity(myIntent);
-
             }
         });
 
@@ -42,6 +42,16 @@ public class SubMenuActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-    }
 
+        secondGameWaspNest = findViewById(R.id.secondGameWaspNest);
+
+        secondGameWaspNest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("wasp nest picture: ", "clicked");
+                Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
+                startActivity(myIntent);
+            }
+        });
+    }
 }
