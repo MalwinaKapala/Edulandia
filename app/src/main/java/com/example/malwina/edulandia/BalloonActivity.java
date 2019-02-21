@@ -2,11 +2,14 @@ package com.example.malwina.edulandia;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +31,6 @@ implements Balloon.BalloonListener {
     private static final String TAG = "MainActivity";
 
     private static final int BALLOONS_PER_LEVEL = 10;
-    private static final int NUMBER_OF_PINS = 5;
-
     private static final int MIN_ANIMATION_DELAY = 500;
     private static final int MAX_ANIMATION_DELAY = 1500;
     private static final int MIN_ANIMATION_DURATION = 1000;
@@ -44,17 +45,26 @@ implements Balloon.BalloonListener {
     private int[] mBalloonColors = new int[3];
     private int mNextColor, mBalloonsPopped,
             mScreenWidth, mScreenHeight;
+    private MediaPlayer balloonMediaPlayer;
+    private MediaPlayer poppingBalloonMediaPlayer;
+    private ImageView reloadButton;
+    private ImageView homeButton;
+    private ImageView nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        balloonMediaPlayer = MediaPlayer.create(this, R.raw.gamebackgroundmusic1);
+        balloonMediaPlayer.start();
+
 
 
 //      Load the activity layout, which is an empty canvas
         setContentView(R.layout.balloon_activity);
 
 //      Get background reference.
-        mContentView = findViewById(R.id.content_view);
+        mContentView = findViewById(R.id.balloonView);
         if (mContentView == null) throw new AssertionError();
         mContentView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -81,6 +91,40 @@ implements Balloon.BalloonListener {
             });
         }
 
+        reloadButton = findViewById(R.id.reloadButton);
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("reload button", "clicked");
+                onBackPressed();
+                balloonMediaPlayer.stop();
+                ((EdulandiaApplication)getApplication()).startMusic();
+
+            }
+        });
+
+        homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("home button", "clicked");
+                Intent myIntent = new Intent(BalloonActivity.this, MainActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        nextButton = findViewById(R.id.goButton);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("next button", "clicked");
+//                Intent myIntent = new Intent(BalloonActivity.this, FirstGameActivity.class);
+//                startActivity(myIntent);
+
+            }
+        });
+
+
 
 //      Initialize balloon colors: red, white and blue
         mBalloonColors[0] = Color.argb(255, 255, 0, 0);
@@ -89,6 +133,8 @@ implements Balloon.BalloonListener {
 
 
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -157,7 +203,7 @@ implements Balloon.BalloonListener {
         mContentView.addView(balloon);
 
 //      Let 'er fly
-        int duration = Math.max(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION - (1 * 1000));
+        int duration = Math.max(MIN_ANIMATION_DURATION, MAX_ANIMATION_DURATION - (1 * 4000));
         balloon.releaseBalloon(mScreenHeight, duration);
 
     }
@@ -166,6 +212,10 @@ implements Balloon.BalloonListener {
     public void popBalloon(Balloon balloon, boolean userTouch) {
 
 //      Play sound, make balloon go away
+        poppingBalloonMediaPlayer = MediaPlayer.create(this, R.raw.goosesound);
+        poppingBalloonMediaPlayer.start();
+
+
         mContentView.removeView(balloon);
         mBalloons.remove(balloon);
         mBalloonsPopped++;
