@@ -50,7 +50,7 @@ public class Balloon extends AppCompatImageView
     public void releaseBalloon(int screenHeight, int duration) {
         mAnimator = new ValueAnimator();
         mAnimator.setDuration(duration);
-        mAnimator.setFloatValues(screenHeight, 0f);
+        mAnimator.setFloatValues(screenHeight, - 550f);
         mAnimator.setInterpolator(new LinearInterpolator());
         mAnimator.setTarget(this);
         mAnimator.addListener(this);
@@ -60,7 +60,7 @@ public class Balloon extends AppCompatImageView
     @Override
     public void onAnimationUpdate(ValueAnimator animation) {
         if (!mPopped) {
-            setY((Float) animation.getAnimatedValue());
+            setY((Float)animation.getAnimatedValue());
         }
     }
     public interface BalloonListener {
@@ -73,7 +73,7 @@ public class Balloon extends AppCompatImageView
     public void onAnimationEnd(Animator animation) {
 //      This means the balloon got to the top of the screen
         if (!mPopped) {
-            mListener.popBalloon(this, false);
+//            mListener.popBalloon(this, false);
         }
     }
     @Override
