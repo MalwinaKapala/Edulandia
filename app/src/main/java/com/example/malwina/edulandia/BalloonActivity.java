@@ -96,7 +96,10 @@ implements Balloon.BalloonListener {
             @Override
             public void onClick(View v) {
                 Log.d("reload button", "clicked");
-                onBackPressed();
+
+                Intent myIntent = new Intent(BalloonActivity.this, FirstGameActivity.class);
+                startActivity(myIntent);
+
                 balloonMediaPlayer.stop();
                 ((EdulandiaApplication)getApplication()).startMusic();
 
