@@ -27,6 +27,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".FirstGameActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".SecondGameActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".SettingsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".BalloonActivity"

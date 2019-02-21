@@ -55,7 +55,7 @@ implements Balloon.BalloonListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        balloonMediaPlayer = MediaPlayer.create(this, R.raw.gamebackgroundmusic1);
+        balloonMediaPlayer = MediaPlayer.create(this, R.raw.aplause);
         balloonMediaPlayer.start();
 
 
@@ -101,6 +101,7 @@ implements Balloon.BalloonListener {
                 startActivity(myIntent);
 
                 balloonMediaPlayer.stop();
+                poppingBalloonMediaPlayer.stop();
                 ((EdulandiaApplication)getApplication()).startMusic();
 
             }
@@ -113,6 +114,10 @@ implements Balloon.BalloonListener {
                 Log.d("home button", "clicked");
                 Intent myIntent = new Intent(BalloonActivity.this, MainActivity.class);
                 startActivity(myIntent);
+
+                balloonMediaPlayer.stop();
+                poppingBalloonMediaPlayer.stop();
+                ((EdulandiaApplication)getApplication()).startMusic();
             }
         });
 
@@ -121,9 +126,12 @@ implements Balloon.BalloonListener {
             @Override
             public void onClick(View v) {
                 Log.d("next button", "clicked");
-//                Intent myIntent = new Intent(BalloonActivity.this, FirstGameActivity.class);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(BalloonActivity.this, SecondGameActivity.class);
+                startActivity(myIntent);
 
+                balloonMediaPlayer.stop();
+                poppingBalloonMediaPlayer.stop();
+                ((EdulandiaApplication)getApplication()).startMusic();
             }
         });
 
@@ -215,7 +223,7 @@ implements Balloon.BalloonListener {
     public void popBalloon(Balloon balloon, boolean userTouch) {
 
 //      Play sound, make balloon go away
-        poppingBalloonMediaPlayer = MediaPlayer.create(this, R.raw.goosesound);
+        poppingBalloonMediaPlayer = MediaPlayer.create(this, R.raw.balloonpop);
         poppingBalloonMediaPlayer.start();
 
 
