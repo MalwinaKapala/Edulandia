@@ -31,6 +31,7 @@ public class FirstGameActivity extends AppCompatActivity {
     private static Random random;
     private int currentQuestionId;
     MediaPlayer soundsMediaPlayer;
+    public MediaPlayer correctMediaPlayer;
 
 
     @Override
@@ -98,6 +99,8 @@ public class FirstGameActivity extends AppCompatActivity {
                     Log.d("answer","Good answer");
                     questionPicture.setVisibility(View.INVISIBLE);
 
+                    ((EdulandiaApplication)getApplication()).startCorrectMP();
+
                     if (((EdulandiaApplication)getApplication()).isSoundOn()) {
                         soundsMediaPlayer = MediaPlayer.create(FirstGameActivity.this, matches.get(currentQuestionId).getCorrectAnswerSound());
                         soundsMediaPlayer.start();
@@ -115,6 +118,7 @@ public class FirstGameActivity extends AppCompatActivity {
 
                 } else {
                     Log.d("answer", "Wrong answer");
+                    ((EdulandiaApplication)getApplication()).startWrongMP();
                 }
             }
         };

@@ -49,7 +49,7 @@ public class SubMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("wasp nest picture: ", "clicked");
-                Intent myIntent = new Intent(SubMenuActivity.this, FirstGameActivity.class);
+                Intent myIntent = new Intent(SubMenuActivity.this, SecondGameActivity.class);
                 startActivity(myIntent);
             }
         });

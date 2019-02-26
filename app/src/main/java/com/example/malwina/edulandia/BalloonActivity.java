@@ -150,7 +150,10 @@ implements Balloon.BalloonListener {
     @Override
     public void onBackPressed() {
         stopGame();
-        super.onBackPressed();
+        balloonMediaPlayer.stop();
+
+        Intent myIntent = new Intent(BalloonActivity.this, SubMenuActivity.class);
+        startActivity(myIntent);
     }
 
     private void setToFullScreen() {
@@ -274,8 +277,8 @@ implements Balloon.BalloonListener {
 
 //          level 1 = max delay; each ensuing level reduces delay by 500 ms
 //            min delay is 250 ms
-            int maxDelay = Math.max(MIN_ANIMATION_DELAY, (MAX_ANIMATION_DELAY - ((level - 1) * 500)));
-            int minDelay = maxDelay / 2;
+            int maxDelay = Math.max(MIN_ANIMATION_DELAY, (MAX_ANIMATION_DELAY - ((level - 1) * 100)));
+            int minDelay = maxDelay / 3;
 
 //          Keep on launching balloons until either
 //              1) we run out or 2) the mPlaying flag is set to false
@@ -284,7 +287,7 @@ implements Balloon.BalloonListener {
 
 //              Get a random horizontal position for the next balloon
                 Random random = new Random(new Date().getTime());
-                int xPosition = random.nextInt(mScreenWidth - 200);
+                int xPosition = random.nextInt(mScreenWidth - 500);
                 publishProgress(xPosition);
                 balloonsLaunched++;
 
