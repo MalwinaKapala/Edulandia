@@ -58,6 +58,9 @@ implements Balloon.BalloonListener {
         balloonMediaPlayer = MediaPlayer.create(this, R.raw.aplause);
         balloonMediaPlayer.start();
 
+        poppingBalloonMediaPlayer = MediaPlayer.create(this, R.raw.balloonpop);
+
+
 
 
 //      Load the activity layout, which is an empty canvas
@@ -97,12 +100,10 @@ implements Balloon.BalloonListener {
             public void onClick(View v) {
                 Log.d("reload button", "clicked");
 
-                Intent myIntent = new Intent(BalloonActivity.this, FirstGameActivity.class);
-                startActivity(myIntent);
+                stopGame();
+                setResult(FirstGameActivity.RESULT_RESTART);
+                finish();
 
-                balloonMediaPlayer.stop();
-                poppingBalloonMediaPlayer.stop();
-                ((EdulandiaApplication)getApplication()).startMusic();
 
             }
         });
@@ -112,12 +113,14 @@ implements Balloon.BalloonListener {
             @Override
             public void onClick(View v) {
                 Log.d("home button", "clicked");
-                Intent myIntent = new Intent(BalloonActivity.this, MainActivity.class);
-                startActivity(myIntent);
 
-                balloonMediaPlayer.stop();
-                poppingBalloonMediaPlayer.stop();
-                ((EdulandiaApplication)getApplication()).startMusic();
+                stopGame();
+                Intent intent = new Intent(BalloonActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+
+
             }
         });
 
@@ -126,12 +129,11 @@ implements Balloon.BalloonListener {
             @Override
             public void onClick(View v) {
                 Log.d("next button", "clicked");
-                Intent myIntent = new Intent(BalloonActivity.this, SecondGameActivity.class);
-                startActivity(myIntent);
+//                Intent myIntent = new Intent(BalloonActivity.this, SecondGameActivity.class);
+//                startActivity(myIntent);
+//
+//                stopGame();
 
-                balloonMediaPlayer.stop();
-                poppingBalloonMediaPlayer.stop();
-                ((EdulandiaApplication)getApplication()).startMusic();
             }
         });
 
@@ -150,10 +152,8 @@ implements Balloon.BalloonListener {
     @Override
     public void onBackPressed() {
         stopGame();
-        balloonMediaPlayer.stop();
-
-        Intent myIntent = new Intent(BalloonActivity.this, SubMenuActivity.class);
-        startActivity(myIntent);
+        setResult(FirstGameActivity.RESULT_RESTART);
+        finish();
     }
 
     private void setToFullScreen() {
@@ -226,7 +226,7 @@ implements Balloon.BalloonListener {
     public void popBalloon(Balloon balloon, boolean userTouch) {
 
 //      Play sound, make balloon go away
-        poppingBalloonMediaPlayer = MediaPlayer.create(this, R.raw.balloonpop);
+        poppingBalloonMediaPlayer.seekTo(0);
         poppingBalloonMediaPlayer.start();
 
 

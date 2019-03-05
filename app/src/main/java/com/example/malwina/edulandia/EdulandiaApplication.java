@@ -10,9 +10,6 @@ public class EdulandiaApplication extends Application {
     private ImageView backButton;
     boolean soundOn = true;
     public MediaPlayer balloonMediaPlayer;
-    public MediaPlayer correctMediaPlayer;
-    public MediaPlayer wrongMediaPlayer;
-
 
     @Override
     public void onCreate() {
@@ -86,23 +83,5 @@ public class EdulandiaApplication extends Application {
         } else {
             startBalloonMusic();
         }
-    }
-
-    public void startCorrectMP() {
-        correctMediaPlayer = MediaPlayer.create(this, R.raw.correctanswer);
-        correctMediaPlayer.start();
-    }
-
-    public void stopCorrectMP() {
-        correctMediaPlayer.stop();
-    }
-
-    public void startWrongMP() {
-        wrongMediaPlayer = MediaPlayer.create(this, R.raw.wrong);
-        wrongMediaPlayer.start();
-    }
-
-    public void stopWrongMP() {
-        wrongMediaPlayer.stop();
     }
 }
