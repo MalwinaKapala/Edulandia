@@ -10,6 +10,7 @@ public class EdulandiaApplication extends Application {
     private ImageView backButton;
     boolean soundOn = true;
     public MediaPlayer balloonMediaPlayer;
+    boolean musicOff;
 
     @Override
     public void onCreate() {
@@ -40,9 +41,12 @@ public class EdulandiaApplication extends Application {
     public void toggleMusic() {
         if (musicMediaPlayer.isPlaying()) {
             pauseMusic();
+            musicOff = true;
         } else {
             startMusic();
+            musicOff = false;
         }
+
     }
 
     public void musicOff() {
@@ -57,6 +61,10 @@ public class EdulandiaApplication extends Application {
 
     public boolean isSoundOn() {
         return soundOn;
+    }
+
+    public boolean isMusicOff() {
+        return musicOff;
     }
 
     public void setSoundOff() {

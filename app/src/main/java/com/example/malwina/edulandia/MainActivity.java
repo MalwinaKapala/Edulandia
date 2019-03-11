@@ -23,9 +23,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        if (!getIntent().getBooleanExtra("restart", false)) {
+//            ((EdulandiaApplication) getApplication()).startMusic();
+//
+//        }
+        if (!((EdulandiaApplication)getApplication()).isMusicOff()) {
 
-        ((EdulandiaApplication)getApplication()).startMusic();
-
+            ((EdulandiaApplication)getApplication()).startMusic();
+        }
 
         playButton = findViewById(R.id.playButton);
         Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse_infinite);
